@@ -2,8 +2,6 @@ package com.example.demo.Service;
 
 
 import java.util.Optional;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.Module.Person;
@@ -21,17 +19,16 @@ public class ApiService {
 	public Optional<Person> getPersonByAadharNumber(String adharNumber) {
 		return personRepo.findByAadharCard_AdharNumber(adharNumber);
 	}
+	
 	public Person updatePerson(Long id,Person updatPerson){
-		Optional<Person> presentPerson
-		=getPersonByAadharNumber(updatPerson.getAadharCard().getAdharNumber());
-		if(presentPerson.isPresent()) {
-			updatPerson.setId(id);
-			Person savedPerson=savePersonWithAadhar(updatPerson);
-			return savedPerson;
-		}
-		else {
-			return null;
-		}
+		Person p=personRepo.findById(id).orElse(null);
+		p.setName(updatPerson.getName());
+		p.setAge(updatPerson.getAge());
+		p.setEmail(updatPerson.getEmail());
+		p.setPhno(updatPerson.getPhno());
+		p.setAadharCard(updatPerson.getAadharCard());
+		personRepo.save(p);
+		return p;
 	}
 	public Person deletePerson(Long id) {
 		Person person=personRepo.findById(id).orElse(null);

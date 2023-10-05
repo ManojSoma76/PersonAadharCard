@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,12 +16,12 @@ import jakarta.validation.constraints.Size;
 public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@NotNull(message = "age shouldn't be null or empty")
 	private int age;
 	
-	@NotEmpty(message = "name shouldn't be null or empty")
+	@NotBlank(message = "name shouldn't be null or empty")
 	private String name;
 	
 	@Size(min=10,max = 10,message = "PhoneNumber Should be 10 digit only" )
@@ -30,7 +31,7 @@ public class Person {
 	@Email(message = "invalid email id")
 	private String email;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
 	@JoinColumn(name="aadhar_number")
 	private AadharCard aadharCard;
 	public long getId() {

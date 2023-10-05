@@ -31,7 +31,7 @@ public class ApiController {
 
 	// http://localhost:8080/get/78656897537
 	@GetMapping("/get/{adharNumber}")
-	public ResponseEntity<Person> getPersonByAadhar(@PathVariable String adharNumber) {
+	public ResponseEntity<Person> getPersonByAadhar(@PathVariable(name = "adharNumber") String adharNumber) {
 		Optional<Person> person=apiService.getPersonByAadharNumber(adharNumber);
 		return person.map(ResponseEntity::ok).orElseGet(()->ResponseEntity.notFound().build());
 	}
@@ -39,7 +39,7 @@ public class ApiController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> updatePerson(@PathVariable Long id,@Valid @RequestBody Person updatPerson){
 		apiService.updatePerson(id, updatPerson);
-		return ResponseEntity.ok("person with ID"+id+ "updated succesfully");
+		return ResponseEntity.ok("person with ID "+id+ " updated succesfully");
 		
 	}
 	//http://localhost:8080/delete?id=1

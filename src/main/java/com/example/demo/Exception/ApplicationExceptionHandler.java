@@ -19,6 +19,6 @@ public class ApplicationExceptionHandler {
 		exception.getBindingResult().getFieldErrors().forEach(error->{
 			errorMap.put(error.getField(), error.getDefaultMessage());
 		});
-		return errorMap;
+		return errorMap; 
 	}
 }
